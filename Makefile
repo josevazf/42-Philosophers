@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/27 17:12:44 by jrocha-v          #+#    #+#              #
-#    Updated: 2024/02/21 16:40:51 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/02/21 18:04:49 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ CC				= cc
 CFLAGS			= -Wall -Wextra -Werror -g 
 RM				= rm -rf
 
-SRCS			= philo.c
+SRCS			= 	philo_main.c \
+					philo_errors.c
 
 # Substitute .c with .o 
 OBJS			= $(SRCS:%.c=$(OBJS_DIR)/%.o)
