@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/27 17:12:44 by jrocha-v          #+#    #+#              #
-#    Updated: 2024/02/21 18:04:49 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/03/19 11:42:28 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ CFLAGS			= -Wall -Wextra -Werror -g
 RM				= rm -rf
 
 SRCS			= 	philo_main.c \
+					philo_utils.c \
 					philo_errors.c
 
 # Substitute .c with .o 
@@ -53,7 +54,7 @@ OBJS			= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 all: $(NAME)
 $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
-	@echo "$(GREEN)./minishell executable is ready!$(RESET)"
+	@echo "$(GREEN)./philo executable is ready!$(RESET)"
 
 #create .o fies
 # $< first prerequisite aka .c; $@ output/target file aka .o
