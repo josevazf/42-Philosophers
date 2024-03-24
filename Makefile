@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/27 17:12:44 by jrocha-v          #+#    #+#              #
-#    Updated: 2024/03/19 11:42:28 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/03/24 18:37:10 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,10 +36,8 @@ SRCS_DIR		= src
 OBJS_DIR		= objs
 
 INCLUDES		= includes
-LIBFT			= ./libs/libft/libft.a
-LIBFT_DIR		= ./libs/libft
 
-CC				= cc
+CC				= cc -fsanitize=thread
 CFLAGS			= -Wall -Wextra -Werror -g 
 RM				= rm -rf
 
@@ -53,7 +51,7 @@ OBJS			= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 #default target
 all: $(NAME)
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lpthread
 	@echo "$(GREEN)./philo executable is ready!$(RESET)"
 
 #create .o fies
@@ -62,37 +60,14 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	mkdir -p $(@D)
 	$(CC) -I $(INCLUDES) $(CFLAGS) -c $< -o $@
 
-$(LIBFT):
-	clear
-	@echo "$(YELLOW)Compiling necessary libs...$(RESET)"
-	$(MAKE) -C $(LIBFT_DIR)
-
-#testing fd leaks
-leaks: readline.supp
-	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes ./minishell
-
-readline.supp:
-	@echo "{" > readline.supp
-	@echo "    leak readline" >> readline.supp
-	@echo "    Memcheck:Leak" >> readline.supp
-	@echo "    ..." >> readline.supp
-	@echo "    fun:readline" >> readline.supp
-	@echo "}" >> readline.supp
-	@echo "{" >> readline.supp
-	@echo "    leak add_history" >> readline.supp
-	@echo "    Memcheck:Leak" >> readline.supp
-	@echo "    ..." >> readline.supp
-	@echo "    fun:add_history" >> readline.supp
-	@echo "}" >> readline.supp
-
 #remove .o files
 clean:
 	$(RM) $(OBJS_DIR)
-	$(MAKE) clean -C $(LIBFT_DIR)
+	$(MAKE) clean -C
 	@echo "$(RED)Object files have been deleted!$(RESET)"
 
 fclean: clean
-	$(RM) $(NAME) $(LIBFT) readline.supp
+	$(RM) $(NAME)
 
 #reset environment - remove everything and recompile
 re: fclean
