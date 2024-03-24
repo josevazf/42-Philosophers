@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/27 17:12:44 by jrocha-v          #+#    #+#              #
-#    Updated: 2024/03/24 18:37:10 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/03/24 19:46:03 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ OBJS_DIR		= objs
 
 INCLUDES		= includes
 
-CC				= cc -fsanitize=thread
+CC				= cc #-fsanitize=thread
 CFLAGS			= -Wall -Wextra -Werror -g 
 RM				= rm -rf
 
