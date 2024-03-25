@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/27 17:12:44 by jrocha-v          #+#    #+#              #
-#    Updated: 2024/03/24 19:46:03 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/03/25 10:11:26 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ OBJS_DIR		= objs
 
 INCLUDES		= includes
 
-CC				= cc #-fsanitize=thread
+CC				= cc
 CFLAGS			= -Wall -Wextra -Werror -g 
 RM				= rm -rf
 
@@ -48,11 +48,13 @@ SRCS			= 	philo_main.c \
 # Substitute .c with .o 
 OBJS			= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
+.SILENT:
+
 #default target
 all: $(NAME)
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lpthread
-	@echo "$(GREEN)./philo executable is ready!$(RESET)"
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lpthread && sleep 1 && ./philo
+	#@echo "$(GREEN)./philo executable is ready!$(RESET)"
 
 #create .o fies
 # $< first prerequisite aka .c; $@ output/target file aka .o
@@ -63,7 +65,6 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 #remove .o files
 clean:
 	$(RM) $(OBJS_DIR)
-	$(MAKE) clean -C
 	@echo "$(RED)Object files have been deleted!$(RESET)"
 
 fclean: clean
@@ -75,4 +76,3 @@ re: fclean
 
 #targets declared as .PHONY will force the command even if there is a subdirectory or file with it's name
 .PHONY: all clean fclean re
-.SILENT:

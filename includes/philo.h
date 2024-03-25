@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:47:59 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/24 19:48:27 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/25 08:42:08 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define DEAD 666
 
 
-typedef struct s_table
+/* typedef struct s_table
 {
 	int				start_time;
 	int				nb_philos;
@@ -49,11 +49,12 @@ typedef struct s_philo
 	int				last_meal;
 	bool			left_f;
 	bool			right_f;
-}	t_philo;
+}	t_philo; */
 
 // philo_main.c
 
 // philo_errors.c
 int		args_error(void);
+int		pth_check(int pthread_ret);
 
 #endif
