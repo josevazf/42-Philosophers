@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:47:59 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/26 08:38:27 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:26:19 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,32 @@
 # define THINKING 3
 # define DEAD 666
 
-
-/* typedef struct s_table
+typedef struct s_table
 {
-	int				start_time;
+	long			start_time; // ms
 	int				nb_philos;
 	int				nb_meals;
-	int				tt_die;
-	int				tt_eat;
-	int				tt_sleep;
+	long			tt_die;
+	long			tt_eat;
+	long			tt_sleep;
 	bool			finished;
 	struct	s_philo	*philos;
 }	t_table;
+
+typedef struct s_fork
+{
+	int				index;
+}	t_fork;
 
 typedef struct s_philo
 {
 	int				index;
 	int				state;
 	int				meal_count;
-	int				last_meal;
-	bool			left_f;
-	bool			right_f;
-}	t_philo; */
+	long			last_meal_time;
+	t_fork			left_fork;
+	t_fork			right_fork;
+}	t_philo;
 
 // philo_main.c
 
