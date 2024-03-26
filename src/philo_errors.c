@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:03:22 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/25 15:03:13 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:25:04 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 /* Deal with bad arguments */
 int	args_error(void)
 {
-	printf("philo usage: ./philo number_of_philosophers time_to_die time_to_eat ");
-	printf("time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
+	printf("philo usage: ./philo number_of_philosophers time_to_die \
+time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
+	printf("\tex.: ./philo 3 600 150 150 [5]\n");
 	exit(EXIT_FAILURE);
 }
 
