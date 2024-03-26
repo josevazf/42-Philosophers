@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/27 17:12:44 by jrocha-v          #+#    #+#              #
-#    Updated: 2024/03/25 10:11:26 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/03/26 17:56:07 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ CFLAGS			= -Wall -Wextra -Werror -g
 RM				= rm -rf
 
 SRCS			= 	philo_main.c \
+					philo_input.c \
 					philo_utils.c \
 					philo_errors.c
 
@@ -53,7 +54,7 @@ OBJS			= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 #default target
 all: $(NAME)
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lpthread && sleep 1 && ./philo
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lpthread #&& sleep 1 && ./philo
 	#@echo "$(GREEN)./philo executable is ready!$(RESET)"
 
 #create .o fies

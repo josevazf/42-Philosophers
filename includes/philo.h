@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:47:59 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/26 17:16:13 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:15:07 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,6 @@
 
 # define ERROR 1
 # define SUCCESS 0
-
-# define EATING 1
-# define SLEEPING 2
-# define THINKING 3
-# define DEAD 666
 
 typedef pthread_mutex_t	t_mutex;
 
@@ -53,7 +48,7 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	int				nb_philos;
+	long			nb_philos;
 	long			start_time; // ms
 	long			tt_die;
 	long			tt_eat;
@@ -66,13 +61,17 @@ typedef struct s_table
 
 // philo_main.c
 
+// philo_input.c
+int		ft_isdigit(int c);
+long	ft_atol_redux(const char *nstr);
+void	check_input(t_table *table, char **argv);
 
 // philo_utils.c
 long	get_current_time(void);
 
 // philo_errors.c
 int		args_error(void);
+void	exit_error(const char *str);
 int		pth_check(int pthread_ret);
-
 
 #endif
