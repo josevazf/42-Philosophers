@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 11:41:39 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/24 18:35:08 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/26 08:36:08 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,13 @@ int	ft_atoi(const char *nstr)
 	while (nstr[i] >= '0' && nstr[i] <= '9')
 		nb = nb * 10 + nstr[i++] - '0';
 	return (nb * sign);
+}
+
+
+long	get_current_time(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }

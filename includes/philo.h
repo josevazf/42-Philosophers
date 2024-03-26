@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:47:59 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/25 08:42:08 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/26 08:38:27 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,13 @@ typedef struct s_philo
 
 // philo_main.c
 
+
+// philo_utils.c
+long	get_current_time(void);
+
 // philo_errors.c
 int		args_error(void);
 int		pth_check(int pthread_ret);
+
 
 #endif
