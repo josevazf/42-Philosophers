@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:32:39 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/26 18:14:22 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:40:00 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ long	ft_atol_redux(const char *nstr)
 		nb = nb * 10 + nstr[i++] - '0';
 	if (nstr[i] != '\0' && !ft_isdigit(nstr[i++]))
 		return (-1);
-	if (nb > INT_MAX)
+	if (nb > INT_MAX || nb <= 0)
 		return (-1);
 	return (nb);
 }
