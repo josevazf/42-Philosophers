@@ -6,13 +6,11 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 11:41:39 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/08 12:08:59 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:47:36 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-
 
 long	get_current_time(void)
 {

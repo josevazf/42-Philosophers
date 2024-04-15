@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:32:39 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/27 12:40:00 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:58:30 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,26 +49,26 @@ long	ft_atol_redux(const char *nstr)
 	return (nb);
 }
 
-void	check_input(t_table *table, char **argv)
+void	check_input(t_dinner *dinner, char **argv)
 {
-	table->nb_philos = ft_atol_redux(argv[1]);
-	printf("%ld\n", table->nb_philos);
-	if (table->nb_philos == -1)
+	dinner->nb_philos = ft_atol_redux(argv[1]);
+	printf("%ld\n", dinner->nb_philos);
+	if (dinner->nb_philos == -1)
 		exit_error("Invalid 'number_of_philosophers'");
-	table->tt_die = ft_atol_redux(argv[2]);
-	printf("%ld\n", table->tt_die);
-	if (table->tt_die == -1)
+	dinner->tt_die = ft_atol_redux(argv[2]);
+	printf("%ld\n", dinner->tt_die);
+	if (dinner->tt_die == -1)
 		exit_error("Invalid 'time_to_die'");
-	table->tt_eat = ft_atol_redux(argv[3]);
-	printf("%ld\n", table->tt_eat);
-	if (table->tt_eat == -1)
+	dinner->tt_eat = ft_atol_redux(argv[3]);
+	printf("%ld\n", dinner->tt_eat);
+	if (dinner->tt_eat == -1)
 		exit_error("Invalid 'time_to_eat'");
-	table->tt_sleep = ft_atol_redux(argv[4]);
-	printf("%ld\n", table->tt_sleep);
-	if (table->tt_sleep == -1)
+	dinner->tt_sleep = ft_atol_redux(argv[4]);
+	printf("%ld\n", dinner->tt_sleep);
+	if (dinner->tt_sleep == -1)
 		exit_error("Invalid 'time_to_sleep'");
 	if (argv[5])
-		table->nb_meals = ft_atol_redux(argv[5]);
+		dinner->nb_meals = ft_atol_redux(argv[5]);
 	else
-		table->nb_meals = -1;
+		dinner->nb_meals = -1;
 }

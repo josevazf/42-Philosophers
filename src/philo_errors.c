@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:32:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/15 15:32:55 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:35:11 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*safe_malloc(size_t bytes)
 
 	output = malloc(bytes);
 	if (output == NULL)
-		exit_error("philo: Malloc error\n");
+		exit_error("philo: malloc error\n");
 	return (output);
 }
 
