@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_utils.c                                      :+:      :+:    :+:   */
+/*   philo_setup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 11:41:39 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/08 12:08:59 by jrocha-v         ###   ########.fr       */
+/*   Created: 2024/04/08 11:56:38 by jrocha-v          #+#    #+#             */
+/*   Updated: 2024/04/08 12:05:54 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-
-
-long	get_current_time(void)
+void	setup_dinner(t_table *table)
 {
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+	table->finished = false;
+	table->philos = safe_malloc(table->nb_philos);
+	
 }
+
+void	safe_mutex(t_mutex *mutex, )

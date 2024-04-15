@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:47:59 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/03/26 18:15:07 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:34:05 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,21 @@
 # include <limits.h>
 # include <stdbool.h>
 # include <sys/time.h>
+# include <errno.h>
 
 # define ERROR 1
 # define SUCCESS 0
+
+typedef enum e_opcode
+{
+	CREATE,
+	JOIN,
+	DETACH,
+	INIT,
+	LOCK,
+	UNLOCK,
+	DESTROY
+}			t_opcode;
 
 typedef pthread_mutex_t	t_mutex;
 
@@ -61,6 +73,7 @@ typedef struct s_table
 
 // philo_main.c
 
+
 // philo_input.c
 int		ft_isdigit(int c);
 long	ft_atol_redux(const char *nstr);
@@ -69,9 +82,16 @@ void	check_input(t_table *table, char **argv);
 // philo_utils.c
 long	get_current_time(void);
 
+// philo_handlers.c
+void	handle_safe_mutex(int status, t_opcode opcode);
+void	safe_mutex(t_mutex *mutex, t_opcode opcode);
+void	handle_safe_thread(int status, t_opcode opcode);
+void	safe_thread(pthread_t *thread, void *(*func)(void *), \
+			void *data, t_opcode opcode);
+
 // philo_errors.c
+void	*safe_malloc(size_t bytes);
 int		args_error(void);
 void	exit_error(const char *str);
-int		pth_check(int pthread_ret);
 
 #endif
