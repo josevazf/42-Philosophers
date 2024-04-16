@@ -6,12 +6,13 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:21:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/15 17:44:29 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/16 09:47:50 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/*  */
 void	*dinner_sim(void *data)
 {
 	t_philo	*philo;
@@ -22,7 +23,7 @@ void	*dinner_sim(void *data)
 	
 	return (NULL); 
 }
-
+/* Create all threads and synchronize to start all threads at the same time */
 void	start_dinner(t_dinner *dinner)
 {
 	int	i;
@@ -39,8 +40,8 @@ void	start_dinner(t_dinner *dinner)
 			handle_safe_thread(&dinner->philos[i].thread_index, dinner_sim, \
 				&dinner->philos[i], CREATE);
 		}
-		 
 	}
+	
 	
 		
 }

@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:47:59 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/15 17:34:38 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/16 09:48:26 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_dinner
 	long			nb_meals;
 	bool			philos_ready;
 	bool			finished;
-	t_mutex			dinner_mutex;
+	t_mutex			dinner_mutex; // avoid races while reading from table
 	t_fork			*forks; // array to store forks
 	t_philo			*philos; // array to store philos
 }	t_dinner;
