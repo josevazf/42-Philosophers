@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:32:39 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/15 15:58:30 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:09:15 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,15 @@ long	ft_atol_redux(const char *nstr)
 void	check_input(t_dinner *dinner, char **argv)
 {
 	dinner->nb_philos = ft_atol_redux(argv[1]);
-	printf("%ld\n", dinner->nb_philos);
 	if (dinner->nb_philos == -1)
 		exit_error("Invalid 'number_of_philosophers'");
 	dinner->tt_die = ft_atol_redux(argv[2]);
-	printf("%ld\n", dinner->tt_die);
 	if (dinner->tt_die == -1)
 		exit_error("Invalid 'time_to_die'");
 	dinner->tt_eat = ft_atol_redux(argv[3]);
-	printf("%ld\n", dinner->tt_eat);
 	if (dinner->tt_eat == -1)
 		exit_error("Invalid 'time_to_eat'");
 	dinner->tt_sleep = ft_atol_redux(argv[4]);
-	printf("%ld\n", dinner->tt_sleep);
 	if (dinner->tt_sleep == -1)
 		exit_error("Invalid 'time_to_sleep'");
 	if (argv[5])

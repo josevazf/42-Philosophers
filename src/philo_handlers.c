@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:03:22 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/15 15:33:32 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:06:02 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	safe_mutex(t_mutex *mutex, t_opcode opcode)
 
 void	handle_safe_thread(int status, t_opcode opcode)
 {
-	if (statu == 0)
+	if (status == 0)
 		return ;
 	else if (status == EAGAIN)
 		exit_error("No resources to create another thread\n");
