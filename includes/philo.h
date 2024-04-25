@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:47:59 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/25 12:13:59 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:36:54 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,15 @@ typedef struct 			s_dinner
 {
 	long			nb_philos;
 	long			start_time; // ms
-	long			tt_die;
-	long			tt_eat;
-	long			tt_sleep;
+	long			tt_die; //ms
+	long			tt_eat; // ms
+	long			tt_sleep; // ms
 	long			nb_meals;
 	bool			philos_ready;
 	bool			finished;
-	t_mutex			dinner_mutex; // avoid races while reading from table
+	t_mutex			dinner_mutex; // avoid races while reading from main struct
 	t_mutex			print_mutex;
+	pthread_t		death_monitor;
 	t_fork			*forks; // array to store forks
 	t_philo			*philos; // array to store philos
 }						t_dinner;
@@ -107,7 +108,7 @@ void	setup_dinner(t_dinner *dinner);
 // philo_start.c
 void	think_action(t_philo *philo);
 void	eat_action(t_philo *philo);
-void	await_philos(t_dinner *dinner);
+void	await_philos(t_dinner *dinner, t_philo *philo);
 void	*dinner_sim(void *data);
 void	start_dinner(t_dinner *dinner);
 
@@ -126,7 +127,7 @@ void	safe_thread(pthread_t *thread, void *(*func)(void *), \
 			void *data, t_opcode opcode);
 
 // philo_utils.c
-void	print_action(t_philo_act action, t_philo *philo, bool debug);
+void	print_action(t_philo_act action, t_philo *philo);
 void	usleep_redux(long sleep_t, t_dinner *dinner);
 long	get_current_time(t_timecode time_code);
 

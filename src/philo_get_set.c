@@ -6,12 +6,11 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 09:49:17 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/25 11:48:20 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:42:55 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
 
 /* Allows a safe access to change a bool variable using a mutex */
 void	set_bool(t_mutex *mutex, bool *dest, bool value)
@@ -26,11 +25,9 @@ bool	get_bool(t_mutex *mutex, bool *value)
 {
 	bool	res;
 	
-	//safe_mutex(mutex, LOCK);
-	pthread_mutex_lock(mutex);
+	safe_mutex(mutex, LOCK);
 	res = *value;
-	//safe_mutex(mutex, UNLOCK);
-	pthread_mutex_unlock(mutex);
+	safe_mutex(mutex, UNLOCK);
 	return (res);
 }
 

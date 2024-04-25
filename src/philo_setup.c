@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:56:38 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/25 12:23:40 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/25 15:44:35 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	philos_init(t_dinner *dinner)
 	while (++i < dinner->nb_philos)
 	{
 		dinner->philos[i].index = i + 1;
-		dinner->philos[i].hungry = false;
+		dinner->philos[i].hungry = true;
 		dinner->philos[i].meal_count = 0;
 		dinner->philos[i].dinner = dinner;
 		safe_mutex(&dinner->philos[i].philo_mutex, INIT);
