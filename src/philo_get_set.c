@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 09:49:17 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/16 12:58:05 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/25 11:48:20 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ bool	get_bool(t_mutex *mutex, bool *value)
 {
 	bool	res;
 	
-	safe_mutex(mutex, LOCK);
+	//safe_mutex(mutex, LOCK);
+	pthread_mutex_lock(mutex);
 	res = *value;
-	safe_mutex(mutex, UNLOCK);
+	//safe_mutex(mutex, UNLOCK);
+	pthread_mutex_unlock(mutex);
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:47:59 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/16 12:54:53 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:13:59 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct 			s_philo
 	t_fork			*second_fork;
 	t_mutex			philo_mutex;
 	pthread_t		thread_index;
-	t_dinner			*dinner;
+	t_dinner		*dinner;
 }						t_philo;
 
 typedef struct 			s_dinner

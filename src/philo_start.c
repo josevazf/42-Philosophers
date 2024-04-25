@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:21:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/16 13:02:00 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:28:41 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	eat_action(t_philo *philo)
 		set_bool(&philo->philo_mutex, &philo->hungry, true);
 	safe_mutex(&philo->first_fork->fork, UNLOCK);
 	safe_mutex(&philo->second_fork->fork, UNLOCK);
-	
 }
 
 /* Spinlock to synchronize all threads */
@@ -51,7 +50,7 @@ void	*dinner_sim(void *data)
 	while (!sim_finished(philo->dinner))
 	{
 		// 1 - philo full?
-		if (!philo->hungry)
+		if (philo->hungry)
 			break ;
 		// 2 - philo eats
 		eat_action(philo);
@@ -64,6 +63,16 @@ void	*dinner_sim(void *data)
 	
 	return (NULL); 
 }
+
+/* void	philo_init(t_dinner *dinner, int i)
+{
+	dinner->philos[i].index = i + 1;
+	dinner->philos[i].hungry = true;
+	dinner->philos[i].meal_count = 0;
+	dinner->philos[i].last_meal_time = 0;
+	dinner->philos[i].dinner = dinner;
+} */
+
 /* Create all threads and synchronize to start all threads at the same time */
 void	start_dinner(t_dinner *dinner)
 {
@@ -78,6 +87,7 @@ void	start_dinner(t_dinner *dinner)
 	{
 		while (++i < dinner->nb_philos)
 		{
+			//philo_init(dinner, i);
 			safe_thread(&dinner->philos[i].thread_index, dinner_sim, \
 				&dinner->philos[i], CREATE);
 		}

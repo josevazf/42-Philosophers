@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 11:41:39 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/16 13:07:45 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:28:35 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_action(t_philo_act action, t_philo *philo, bool debug)
 	long	elapsed_t;
 
 	elapsed_t = get_current_time(MILISECOND) - philo->dinner->start_time;
-	if (!philo->hungry)
+	if (philo->hungry)
 		return ;
 	safe_mutex(&philo->dinner->print_mutex, LOCK);
 	if (debug)

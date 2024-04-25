@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:56:38 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/16 13:13:00 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:23:40 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,16 @@ void	set_forks(t_philo *philo, t_fork *forks, int i)
 void	philos_init(t_dinner *dinner)
 {
 	int	i;
-	t_philo	*philo;
 
 	i = -1;
-	while (++i < dinner->nb_meals)
+	while (++i < dinner->nb_philos)
 	{
-		philo = philo + i;
-		philo->index = i + 1;
-		philo->hungry = false;
-		philo->meal_count = 0;
-		philo->dinner = dinner;
-		safe_mutex(&philo->philo_mutex, INIT);
-		set_forks(philo, dinner->forks, i);
+		dinner->philos[i].index = i + 1;
+		dinner->philos[i].hungry = false;
+		dinner->philos[i].meal_count = 0;
+		dinner->philos[i].dinner = dinner;
+		safe_mutex(&dinner->philos[i].philo_mutex, INIT);
+		set_forks(&dinner->philos[i], dinner->forks, i);
 	}
 }
 
@@ -55,6 +53,7 @@ void	setup_dinner(t_dinner *dinner)
 	safe_mutex(&dinner->print_mutex, INIT);
 	dinner->philos = safe_malloc(sizeof(t_philo) * dinner->nb_philos);
 	dinner->forks = safe_malloc(sizeof(t_fork) * dinner->nb_philos);
+	philos_init(dinner);
 	while (++i < dinner->nb_philos)
 	{
 		safe_mutex(&dinner->forks[i].fork, INIT);
