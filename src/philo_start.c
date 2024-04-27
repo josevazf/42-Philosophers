@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:21:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/25 16:25:09 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/27 16:51:22 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,17 @@ void	*dinner_sim(void *data)
 	return (NULL); 
 }
 
+void	death_checker(void *data)
+{
+	t_dinner *dinner;
+
+	dinner = (t_dinner *)data;
+		
+
+
+	return (NULL);
+}
+
 /* Create all threads and synchronize to start all threads at the same time */
 void	start_dinner(t_dinner *dinner)
 {
@@ -83,6 +94,8 @@ void	start_dinner(t_dinner *dinner)
 				&dinner->philos[i], CREATE);
 		}
 	}
+	safe_thread(&dinner->death_monitor, death_checker, dinner, CREATE);
+	
 	dinner->start_time = get_current_time(MILISECOND) + 10;
 	set_bool(&dinner->dinner_mutex, &dinner->philos_ready, true);
 	i = -1;
