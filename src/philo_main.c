@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:47:48 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/16 12:51:05 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/28 21:50:07 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int     main(int argc, char **argv)
 	t_dinner	dinner;
 	
 	if (argc < 5 || argc > 6)
-		args_error();
+		return (args_error());
 	check_input(&dinner, argv);
 	setup_dinner(&dinner);
 	start_dinner(&dinner);

@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:21:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/28 20:02:37 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/28 21:52:44 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	eat_action(t_philo *philo)
 	print_action(TAKE_FIRST_FORK, philo);
 	safe_mutex(&philo->second_fork->fork, LOCK);
 	print_action(TAKE_SECOND_FORK, philo);
-	set_long(&philo->philo_mutex, &philo->last_meal_time, get_current_time(MILISECOND));
+	set_long(&philo->philo_mutex, &philo->last_meal_time, get_current_time());
 	philo->meal_count++;
 	print_action(EATING, philo);
 	usleep_redux(philo->dinner->tt_eat, philo->dinner);
@@ -39,7 +39,7 @@ void	await_philos(t_dinner *dinner, t_philo *philo)
 	while (!get_bool(&dinner->dinner_mutex, &dinner->philos_ready))
 		;
 	usleep_redux(10 + (philo->index % 2) * 20, dinner);
-	philo->last_meal_time = get_current_time(MILISECOND);
+	philo->last_meal_time = get_current_time();
 }
 
 /*  */
@@ -88,7 +88,7 @@ void	start_dinner(t_dinner *dinner)
 		}
 	}
 	safe_thread(&dinner->death_monitor, death_checker, dinner, CREATE);
-	dinner->start_time = get_current_time(MILISECOND) + 10;
+	dinner->start_time = get_current_time() + 10;
 	set_bool(&dinner->dinner_mutex, &dinner->philos_ready, true);
 	i = -1;
 	while (++i < dinner->nb_philos)

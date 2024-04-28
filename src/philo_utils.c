@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 11:41:39 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/28 20:14:08 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/28 21:53:32 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_action(t_philo_act action, t_philo *philo)
 {
 	long	elapsed_t;
 
-	elapsed_t = get_current_time(MILISECOND) - philo->dinner->start_time;
+	elapsed_t = get_current_time() - philo->dinner->start_time;
 	if (philo->hungry == false)
 		return ;
 	safe_mutex(&philo->dinner->print_mutex, LOCK);
@@ -42,38 +42,30 @@ void	usleep_redux(long sleep_t, t_dinner *dinner)
 	long	elapsed_t;
 	long	remain_t;
 	
-	start_t = get_current_time(MILISECOND);
-	while (sleep_t > get_current_time(MILISECOND) - start_t)
+	start_t = get_current_time();
+	while (sleep_t > get_current_time() - start_t)
 	{
 		if (sim_finished(dinner))
 			break ;
-		elapsed_t = get_current_time(MILISECOND) - start_t;
+		elapsed_t = get_current_time() - start_t;
 		remain_t = sleep_t - elapsed_t;
 		if (remain_t > 1e3)
 			usleep(remain_t / 2);
 		else
 		{
-			while (sleep_t > get_current_time(MILISECOND) - start_t)
+			while (sleep_t > get_current_time() - start_t)
 				;
 		}
 	}
 }
 	
 /* Get current time in the desired format: s, ms or us */
-long	get_current_time(t_timecode time_code)
+long	get_current_time()
 {
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	if (time_code == SECOND)
-		return (tv.tv_sec + (tv.tv_usec / 1e16));
-	else if (time_code == MILISECOND)
-		return ((tv.tv_sec * 1e3) + (tv.tv_usec / 1e3));
-	else if (time_code == MICROSECOND)
-		return ((tv.tv_sec * 1e6) + tv.tv_usec);
-	else
-		exit_error("Wrong input\n");
-	return (EXIT_FAILURE);
+	return ((tv.tv_sec * 1e3) + (tv.tv_usec / 1e3));
 }
 
 void	clean(t_dinner *dinner)

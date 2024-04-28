@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:32:37 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/16 12:58:09 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/28 21:59:02 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ int		args_error(void)
 	printf("philo usage: ./philo number_of_philosophers time_to_die \
 time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]\n");
 	printf("\tex.: ./philo 3 600 150 150 [5]\n");
-	exit(EXIT_FAILURE);
+	return(EXIT_FAILURE);
 }
 
-void	exit_error(const char *str)
+int		exit_error(const char *str)
 {
 	printf("%s\n", str);
-	exit (EXIT_FAILURE);
+	return (EXIT_FAILURE);
 }

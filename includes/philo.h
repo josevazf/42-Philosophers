@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:47:59 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/28 20:15:14 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/28 21:59:22 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,6 @@ typedef enum e_opcode
 	UNLOCK,
 	DESTROY
 }			t_opcode;
-
-typedef enum e_timecode
-{
-	SECOND,
-	MILISECOND,
-	MICROSECOND,
-}			t_timecode;
 
 typedef pthread_mutex_t	t_mutex;
 
@@ -136,12 +129,12 @@ void	*death_checker(void *data);
 // philo_utils.c
 void	print_action(t_philo_act action, t_philo *philo);
 void	usleep_redux(long sleep_t, t_dinner *dinner);
-long	get_current_time(t_timecode time_code);
+long	get_current_time();
 void	clean(t_dinner *dinner);
 
 // philo_errors.c
 void	*safe_malloc(size_t bytes);
 int		args_error(void);
-void	exit_error(const char *str);
+int		exit_error(const char *str);
 
 #endif
