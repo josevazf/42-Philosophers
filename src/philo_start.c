@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:21:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/28 21:52:44 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/28 22:28:05 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	eat_action(t_philo *philo)
 	philo->meal_count++;
 	print_action(EATING, philo);
 	usleep_redux(philo->dinner->tt_eat, philo->dinner);
-	if (philo->dinner->nb_meals > 0 && philo->meal_count == philo->dinner->nb_meals)
+	if (philo->dinner->nb_meals > 0 && \
+		philo->meal_count == philo->dinner->nb_meals)
 		set_bool(&philo->philo_mutex, &philo->hungry, false);
 	safe_mutex(&philo->first_fork->fork, UNLOCK);
 	safe_mutex(&philo->second_fork->fork, UNLOCK);
@@ -67,8 +68,6 @@ void	*dinner_sim(void *data)
 	return (NULL); 
 }
 
-
-
 /* Create all threads and synchronize to start all threads at the same time */
 void	start_dinner(t_dinner *dinner)
 {
@@ -77,8 +76,8 @@ void	start_dinner(t_dinner *dinner)
 	i = -1;
 	if (dinner->nb_meals == 0)
 		return ;
-/* 	else if (dinner->nb_philos == 1)
-		process_one_philo(&dinner); // to do */
+	else if (dinner->nb_philos == 1)
+		process_one_philo(&dinner); // to do
 	else
 	{
 		while (++i < dinner->nb_philos)

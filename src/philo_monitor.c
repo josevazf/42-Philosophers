@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:16:48 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/28 21:52:27 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/28 22:26:02 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ bool	philo_died(t_philo *philo)
 
 	if (!get_bool(&philo->philo_mutex, &philo->hungry))
 		return (false);
-	elapsed = get_current_time() - get_long(&philo->philo_mutex, &philo->last_meal_time);
+	elapsed = get_current_time() - get_long(&philo->philo_mutex, \
+		&philo->last_meal_time);
 	tt_die = philo->dinner->tt_die;
 	if (elapsed > tt_die)
 		return (true);
@@ -68,4 +69,3 @@ void	*death_checker(void *data)
 	}
 	return (NULL);
 }
-
