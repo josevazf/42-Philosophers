@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:56:38 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/25 15:44:35 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/28 19:29:24 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	setup_dinner(t_dinner *dinner)
 	i = -1;
 	dinner->finished = false;
 	dinner->philos_ready = false;
+	dinner->nb_threads_running = 0;
 	safe_mutex(&dinner->dinner_mutex, INIT);
 	safe_mutex(&dinner->print_mutex, INIT);
 	dinner->philos = safe_malloc(sizeof(t_philo) * dinner->nb_philos);

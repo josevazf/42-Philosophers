@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:21:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/27 16:51:22 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/28 20:02:37 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	*dinner_sim(void *data)
 	
 	philo = (t_philo *)data;
 	await_philos(philo->dinner, philo);
+	increase_long(&philo->dinner->dinner_mutex, \
+		&philo->dinner->nb_threads_running);
 	while (!sim_finished(philo->dinner))
 	{
 		// 1 - philo full?
@@ -65,16 +67,7 @@ void	*dinner_sim(void *data)
 	return (NULL); 
 }
 
-void	death_checker(void *data)
-{
-	t_dinner *dinner;
 
-	dinner = (t_dinner *)data;
-		
-
-
-	return (NULL);
-}
 
 /* Create all threads and synchronize to start all threads at the same time */
 void	start_dinner(t_dinner *dinner)
@@ -95,10 +88,11 @@ void	start_dinner(t_dinner *dinner)
 		}
 	}
 	safe_thread(&dinner->death_monitor, death_checker, dinner, CREATE);
-	
 	dinner->start_time = get_current_time(MILISECOND) + 10;
 	set_bool(&dinner->dinner_mutex, &dinner->philos_ready, true);
 	i = -1;
 	while (++i < dinner->nb_philos)
 		safe_thread(&dinner->philos[i].thread_index, NULL, NULL, JOIN);
+	set_bool(&dinner->dinner_mutex, &dinner->finished, true); // all philos full
+	safe_thread(&dinner->death_monitor, NULL, NULL, JOIN);
 }

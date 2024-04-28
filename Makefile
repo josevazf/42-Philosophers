@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/27 17:12:44 by jrocha-v          #+#    #+#              #
-#    Updated: 2024/04/16 12:50:24 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/04/28 20:15:33 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRCS			= 	philo_main.c \
 					philo_input.c \
 					philo_start.c \
 					philo_setup.c \
+					philo_monitor.c \
 					philo_handlers.c \
 					philo_get_set.c \
 					philo_utils.c \

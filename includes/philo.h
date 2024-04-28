@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:47:59 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/25 16:36:54 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/28 20:15:14 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct 			s_dinner
 	long			tt_eat; // ms
 	long			tt_sleep; // ms
 	long			nb_meals;
+	long			nb_threads_running;
 	bool			philos_ready;
 	bool			finished;
 	t_mutex			dinner_mutex; // avoid races while reading from main struct
@@ -113,11 +114,11 @@ void	*dinner_sim(void *data);
 void	start_dinner(t_dinner *dinner);
 
 // philo_get_set.c
+long	increase_long(t_mutex *mutex, long *value);
 void	set_bool(t_mutex *mutex, bool *dest, bool value);
 bool	get_bool(t_mutex *mutex, bool *value);
 void	set_long(t_mutex *mutex, long *dest, long value);
 long	get_long(t_mutex *mutex, long *value);
-bool	sim_finished(t_dinner *dinner);
 
 // philo_handlers.c
 void	handle_safe_mutex(int status, t_opcode opcode);
@@ -126,10 +127,17 @@ void	handle_safe_thread(int status, t_opcode opcode);
 void	safe_thread(pthread_t *thread, void *(*func)(void *), \
 			void *data, t_opcode opcode);
 
+//philo_monitor.c
+bool	philo_died(t_philo *philo);
+bool	sim_finished(t_dinner *dinner);
+bool	threads_ready(t_mutex *mutex, long *threads, long nbr_philo);
+void	*death_checker(void *data);
+
 // philo_utils.c
 void	print_action(t_philo_act action, t_philo *philo);
 void	usleep_redux(long sleep_t, t_dinner *dinner);
 long	get_current_time(t_timecode time_code);
+void	clean(t_dinner *dinner);
 
 // philo_errors.c
 void	*safe_malloc(size_t bytes);

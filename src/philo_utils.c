@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 11:41:39 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/25 16:46:13 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/28 20:14:08 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,21 @@ long	get_current_time(t_timecode time_code)
 	else
 		exit_error("Wrong input\n");
 	return (EXIT_FAILURE);
+}
+
+void	clean(t_dinner *dinner)
+{
+	int		i;
+	t_philo	*philo;
+
+	i = -1;
+	while (++i < dinner->nb_philos)
+	{
+		philo = &dinner->philos[i];
+		safe_mutex(&philo->philo_mutex, DESTROY);
+	}
+	safe_mutex(&dinner->print_mutex, DESTROY);
+	safe_mutex(&dinner->dinner_mutex, DESTROY);
+	free(dinner->forks);
+	free(dinner->philos);
 }
