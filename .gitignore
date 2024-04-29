@@ -5,3 +5,4 @@
 /objs
 *.a
 philo
+/42-philosophers-tester
