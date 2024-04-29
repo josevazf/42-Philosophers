@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 11:41:39 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/28 21:53:32 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/29 11:07:49 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	usleep_redux(long sleep_t, t_dinner *dinner)
 			break ;
 		elapsed_t = get_current_time() - start_t;
 		remain_t = sleep_t - elapsed_t;
-		if (remain_t > 1e3)
+		if (remain_t > 1e6)
 			usleep(remain_t / 2);
 		else
 		{

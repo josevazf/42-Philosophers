@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:47:59 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/28 21:59:22 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/29 09:41:53 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,9 @@ void	eat_action(t_philo *philo);
 void	await_philos(t_dinner *dinner, t_philo *philo);
 void	*dinner_sim(void *data);
 void	start_dinner(t_dinner *dinner);
+
+// philo_single.c
+void	process_one_philo(t_dinner *dinner);
 
 // philo_get_set.c
 long	increase_long(t_mutex *mutex, long *value);

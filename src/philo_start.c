@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:21:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/28 22:28:05 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/29 10:56:41 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,28 @@ void	*dinner_sim(void *data)
 		&philo->dinner->nb_threads_running);
 	while (!sim_finished(philo->dinner))
 	{
-		// 1 - philo full?
-		if (!philo->hungry)
+		if (!get_bool(&philo->philo_mutex, &philo->hungry))
 			break ;
-		// 2 - philo eats
 		eat_action(philo);
-		// 3 - philo sleeps
 		print_action(SLEEPING, philo);
 		usleep_redux(philo->dinner->tt_sleep, philo->dinner);
-		// 4 - philo thinks
 		think_action(philo);
 	}
 	return (NULL); 
+}
+
+void	*process_single_philo(void *data)
+{
+	t_philo *philo;
+	
+	philo = (t_philo *)data;
+	await_philos(philo->dinner, philo);
+	increase_long(&philo->dinner->dinner_mutex, \
+		&philo->dinner->nb_threads_running);
+	print_action(TAKE_FIRST_FORK, philo);
+	while (!sim_finished(philo->dinner))
+		usleep_redux(200, philo->dinner);
+	return (NULL);	
 }
 
 /* Create all threads and synchronize to start all threads at the same time */
@@ -77,7 +87,8 @@ void	start_dinner(t_dinner *dinner)
 	if (dinner->nb_meals == 0)
 		return ;
 	else if (dinner->nb_philos == 1)
-		process_one_philo(&dinner); // to do
+		    safe_thread(&dinner->philos[0].thread_index, process_single_philo, \
+        		&dinner->philos[0], CREATE);
 	else
 	{
 		while (++i < dinner->nb_philos)

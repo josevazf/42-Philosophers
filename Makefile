@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/27 17:12:44 by jrocha-v          #+#    #+#              #
-#    Updated: 2024/04/28 22:31:02 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/04/29 09:42:06 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ RM				= rm -rf
 SRCS			= 	philo_main.c \
 					philo_input.c \
 					philo_start.c \
+					philo_single.c \
 					philo_setup.c \
 					philo_monitor.c \
 					philo_single.c \
