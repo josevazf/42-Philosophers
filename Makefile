@@ -6,7 +6,7 @@
 #    By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/27 17:12:44 by jrocha-v          #+#    #+#              #
-#    Updated: 2024/04/29 09:42:06 by jrocha-v         ###   ########.fr        #
+#    Updated: 2024/04/29 19:16:11 by jrocha-v         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,16 +38,16 @@ OBJS_DIR		= objs
 INCLUDES		= includes
 
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror -g 
+CFLAGS			= -Wall -Wextra -Werror -g
+TH_FLAGS		= -lpthread #-fsanitize=thread
 RM				= rm -rf
 
 SRCS			= 	philo_main.c \
 					philo_input.c \
 					philo_start.c \
-					philo_single.c \
 					philo_setup.c \
 					philo_monitor.c \
-					philo_single.c \
+					philo_actions.c \
 					philo_handlers.c \
 					philo_get_set.c \
 					philo_utils.c \
@@ -61,7 +61,7 @@ OBJS			= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 #default target
 all: $(NAME)
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lpthread #&& sleep 1 && ./philo
+	$(CC) $(CFLAGS) $(TH_FLAGS) $(OBJS) -o $(NAME)
 	#@echo "$(GREEN)./philo executable is ready!$(RESET)"
 
 #create .o fies

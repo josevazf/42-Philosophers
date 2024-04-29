@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 11:41:39 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/29 12:42:30 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/29 19:08:08 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ long	get_current_time()
 	return ((tv.tv_sec * 1e3) + (tv.tv_usec / 1e3));
 }
 
-void	clean(t_dinner *dinner)
+void	cleanup(t_dinner *dinner)
 {
 	int		i;
 	t_philo	*philo;

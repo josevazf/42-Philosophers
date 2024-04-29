@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:47:59 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/29 09:41:53 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/29 19:40:27 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,18 @@ typedef pthread_mutex_t	t_mutex;
 
 typedef struct s_dinner	t_dinner;
 
-typedef struct			s_fork
+typedef struct s_fork
 {
 	t_mutex			fork;
 	int				fork_index;
 }						t_fork;
 
-typedef struct 			s_philo
+typedef struct s_philo
 {
 	int				index;
-	bool			hungry; // yes | no
+	bool			hungry;
 	long			meal_count;
-	long			last_meal_time; // ms
+	long			last_meal_time;
 	t_fork			*first_fork;
 	t_fork			*second_fork;
 	t_mutex			philo_mutex;
@@ -69,18 +69,18 @@ typedef struct 			s_philo
 	t_dinner		*dinner;
 }						t_philo;
 
-typedef struct 			s_dinner
+typedef struct s_dinner
 {
 	long			nb_philos;
-	long			start_time; // ms
-	long			tt_die; //ms
-	long			tt_eat; // ms
-	long			tt_sleep; // ms
+	long			start_time;
+	long			tt_die;
+	long			tt_eat;
+	long			tt_sleep;
 	long			nb_meals;
 	long			nb_threads_running;
 	bool			philos_ready;
 	bool			finished;
-	t_mutex			dinner_mutex; // avoid races while reading from main struct
+	t_mutex			dinner_mutex;
 	t_mutex			print_mutex;
 	pthread_t		death_monitor;
 	t_fork			*forks; // array to store forks
@@ -100,21 +100,23 @@ void	philos_init(t_dinner *dinner);
 void	setup_dinner(t_dinner *dinner);
 
 // philo_start.c
-void	think_action(t_philo *philo);
-void	eat_action(t_philo *philo);
+
 void	await_philos(t_dinner *dinner, t_philo *philo);
+void	desync_philos(t_philo *philo);
+void	*process_single_philo(void *data);
 void	*dinner_sim(void *data);
 void	start_dinner(t_dinner *dinner);
 
-// philo_single.c
-void	process_one_philo(t_dinner *dinner);
+// philo_actions.c
+void	think_action(t_philo *philo, bool sim_started);
+void	eat_action(t_philo *philo);
 
 // philo_get_set.c
-long	increase_long(t_mutex *mutex, long *value);
 void	set_bool(t_mutex *mutex, bool *dest, bool value);
 bool	get_bool(t_mutex *mutex, bool *value);
 void	set_long(t_mutex *mutex, long *dest, long value);
 long	get_long(t_mutex *mutex, long *value);
+long	increase_long(t_mutex *mutex, long *value);
 
 // philo_handlers.c
 void	handle_safe_mutex(int status, t_opcode opcode);
@@ -132,8 +134,8 @@ void	*death_checker(void *data);
 // philo_utils.c
 void	print_action(t_philo_act action, t_philo *philo);
 void	usleep_redux(long sleep_t, t_dinner *dinner);
-long	get_current_time();
-void	clean(t_dinner *dinner);
+long	get_current_time(void);
+void	cleanup(t_dinner *dinner);
 
 // philo_errors.c
 void	*safe_malloc(size_t bytes);
