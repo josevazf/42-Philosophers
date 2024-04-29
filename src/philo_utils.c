@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 11:41:39 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/29 11:07:49 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/29 12:42:30 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,28 @@ void	print_action(t_philo_act action, t_philo *philo)
 /* Usleep function adjusted for precision */
 void	usleep_redux(long sleep_t, t_dinner *dinner)
 {
+	struct timeval	start_t;
+	struct timeval	elapsed_t;
+	long			remain_t;
+	
+	gettimeofday(&start_t, NULL);
+	while (1)
+	{
+		if (sim_finished(dinner))
+			break ;
+		gettimeofday(&elapsed_t, NULL);
+		remain_t = (elapsed_t.tv_sec - start_t.tv_sec) * 1000
+			+ (elapsed_t.tv_usec - start_t.tv_usec) / 1000;
+		if (remain_t >= sleep_t)
+			break ;
+		usleep(100);
+	}
+	return ;
+}
+
+/* Usleep function adjusted for precision */
+/* void	usleep_redux(long sleep_t, t_dinner *dinner)
+{
 	long	start_t;
 	long	elapsed_t;
 	long	remain_t;
@@ -57,7 +79,7 @@ void	usleep_redux(long sleep_t, t_dinner *dinner)
 				;
 		}
 	}
-}
+} */
 	
 /* Get current time in the desired format: s, ms or us */
 long	get_current_time()
