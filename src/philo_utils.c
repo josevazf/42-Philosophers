@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 11:41:39 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/29 19:08:08 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/29 19:49:38 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	usleep_redux(long sleep_t, t_dinner *dinner)
 	struct timeval	start_t;
 	struct timeval	elapsed_t;
 	long			remain_t;
-	
+
 	gettimeofday(&start_t, NULL);
 	while (1)
 	{
@@ -80,9 +80,9 @@ void	usleep_redux(long sleep_t, t_dinner *dinner)
 		}
 	}
 } */
-	
+
 /* Get current time in the desired format: s, ms or us */
-long	get_current_time()
+long	get_current_time(void)
 {
 	struct timeval	tv;
 

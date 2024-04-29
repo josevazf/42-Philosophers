@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:21:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/29 19:09:31 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/29 19:50:46 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	desync_philos(t_philo *philo)
 
 void	*process_single_philo(void *data)
 {
-	t_philo *philo;
-	
+	t_philo	*philo;
+
 	philo = (t_philo *)data;
 	await_philos(philo->dinner, philo);
 	increase_long(&philo->dinner->dinner_mutex, \
@@ -46,14 +46,14 @@ void	*process_single_philo(void *data)
 	print_action(TAKE_FIRST_FORK, philo);
 	while (!sim_finished(philo->dinner))
 		usleep_redux(200, philo->dinner);
-	return (NULL);	
+	return (NULL);
 }
 
 /* Begin dinner simulation */
 void	*dinner_sim(void *data)
 {
 	t_philo	*philo;
-	
+
 	philo = (t_philo *)data;
 	await_philos(philo->dinner, philo);
 	increase_long(&philo->dinner->dinner_mutex, \
@@ -68,20 +68,20 @@ void	*dinner_sim(void *data)
 		usleep_redux(philo->dinner->tt_sleep, philo->dinner);
 		think_action(philo, true);
 	}
-	return (NULL); 
+	return (NULL);
 }
 
 /* Create all threads and synchronize to start all threads at the same time */
 void	start_dinner(t_dinner *dinner)
 {
 	int	i;
-	
+
 	i = -1;
 	if (dinner->nb_meals == 0)
 		return ;
 	else if (dinner->nb_philos == 1)
-		    safe_thread(&dinner->philos[0].thread_index, process_single_philo, \
-        		&dinner->philos[0], CREATE);
+		safe_thread(&dinner->philos[0].thread_index, process_single_philo, \
+			&dinner->philos[0], CREATE);
 	else
 	{
 		while (++i < dinner->nb_philos)
@@ -96,6 +96,6 @@ void	start_dinner(t_dinner *dinner)
 	i = -1;
 	while (++i < dinner->nb_philos)
 		safe_thread(&dinner->philos[i].thread_index, NULL, NULL, JOIN);
-	set_bool(&dinner->dinner_mutex, &dinner->finished, true); // all philos full
+	set_bool(&dinner->dinner_mutex, &dinner->finished, true);
 	safe_thread(&dinner->death_monitor, NULL, NULL, JOIN);
 }

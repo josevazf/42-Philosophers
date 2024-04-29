@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:56:38 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/28 19:29:24 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/29 19:47:22 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	set_forks(t_philo *philo, t_fork *forks, int i)
 	if (philo->index % 2 == 0)
 	{
 		philo->first_fork = &forks[i];
-		philo->second_fork = &forks[(i + 1) % philo->dinner->nb_philos];	
+		philo->second_fork = &forks[(i + 1) % philo->dinner->nb_philos];
 	}
 	else
 	{
-		philo->first_fork = &forks[(i + 1) % philo->dinner->nb_philos];	
+		philo->first_fork = &forks[(i + 1) % philo->dinner->nb_philos];
 		philo->second_fork = &forks[i];
 	}
 }

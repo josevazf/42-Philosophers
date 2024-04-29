@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:16:48 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/28 22:26:02 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/29 19:46:07 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ bool	philo_died(t_philo *philo)
 	return (false);
 }
 
-
 /* Safe wrapper function to get simulation status */
 bool	sim_finished(t_dinner *dinner)
 {
@@ -36,7 +35,7 @@ bool	sim_finished(t_dinner *dinner)
 
 bool	threads_ready(t_mutex *mutex, long *threads, long nbr_philo)
 {
-	bool res;
+	bool	res;
 
 	res = false;
 	safe_mutex(mutex, LOCK);
@@ -52,10 +51,10 @@ void	*death_checker(void *data)
 	t_dinner	*dinner;
 
 	dinner = (t_dinner *)data;
-    while (!threads_ready(&dinner->dinner_mutex, &dinner->nb_threads_running, \
+	while (!threads_ready(&dinner->dinner_mutex, &dinner->nb_threads_running, \
 		dinner->nb_philos))
-        ;
-    while (!sim_finished(dinner))
+		;
+	while (!sim_finished(dinner))
 	{
 		i = -1;
 		while (++i < dinner->nb_philos)

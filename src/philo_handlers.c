@@ -6,13 +6,13 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:03:22 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/16 13:06:02 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/29 19:48:53 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void handle_safe_mutex(int status, t_opcode opcode)
+void	handle_safe_mutex(int status, t_opcode opcode)
 {
 	if (status == 0)
 		return ;
@@ -22,11 +22,13 @@ void handle_safe_mutex(int status, t_opcode opcode)
 	else if (status == EINVAL && opcode == INIT)
 		exit_error("The value specified by attr is invalid\n.");
 	else if (status == EDEADLK)
-		exit_error("A deadlock could occur if the thread blocked waiting for mutex\n");
+		exit_error("A deadlock could occur if the thread blocked \
+			waiting for mutex\n");
 	else if (status == EPERM)
 		exit_error("The current thread does not hold a lock on mutex\n");
 	else if (status == ENOMEM)
-		exit_error("The process cannot allocate enough memory to create another mutex\n");
+		exit_error("The process cannot allocate enough memory to create \
+			another mutex\n");
 	else if (status == EBUSY)
 		exit_error("Mutex is locked\n");
 }
@@ -65,7 +67,8 @@ void	handle_safe_thread(int status, t_opcode opcode)
 			"specifies the calling thread\n");
 }
 
-void	safe_thread(pthread_t *thread, void *(*func)(void *), void *data, t_opcode opcode)
+void	safe_thread(pthread_t *thread, void *(*func)(void *), void *data,
+			t_opcode opcode)
 {
 	if (opcode == CREATE)
 		handle_safe_thread(pthread_create(thread, NULL, func, data), opcode);
