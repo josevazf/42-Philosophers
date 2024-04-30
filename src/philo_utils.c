@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 11:41:39 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/29 19:49:38 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/30 10:52:03 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	print_action(t_philo_act action, t_philo *philo)
 {
 	long	elapsed_t;
 
-	elapsed_t = get_current_time() - philo->dinner->start_time;
 	if (philo->hungry == false)
 		return ;
 	safe_mutex(&philo->dinner->print_mutex, LOCK);
+	elapsed_t = get_current_time() - philo->dinner->start_time;
 	if ((action == TAKE_FIRST_FORK || action == TAKE_SECOND_FORK) \
 		&& !sim_finished(philo->dinner))
 		printf("%ld %d has taken a fork\n", elapsed_t, philo->index);
@@ -56,30 +56,6 @@ void	usleep_redux(long sleep_t, t_dinner *dinner)
 	}
 	return ;
 }
-
-/* Usleep function adjusted for precision */
-/* void	usleep_redux(long sleep_t, t_dinner *dinner)
-{
-	long	start_t;
-	long	elapsed_t;
-	long	remain_t;
-	
-	start_t = get_current_time();
-	while (sleep_t > get_current_time() - start_t)
-	{
-		if (sim_finished(dinner))
-			break ;
-		elapsed_t = get_current_time() - start_t;
-		remain_t = sleep_t - elapsed_t;
-		if (remain_t > 1e6)
-			usleep(remain_t / 2);
-		else
-		{
-			while (sleep_t > get_current_time() - start_t)
-				;
-		}
-	}
-} */
 
 /* Get current time in the desired format: s, ms or us */
 long	get_current_time(void)

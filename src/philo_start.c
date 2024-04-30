@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:21:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/29 19:50:46 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/30 10:36:59 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	await_philos(t_dinner *dinner, t_philo *philo)
 {
 	while (!get_bool(&dinner->dinner_mutex, &dinner->philos_ready))
 		;
-	usleep_redux(10 + (philo->index % 2) * 20, dinner);
+	usleep(10000 + (philo->index % 2) * 200);
 	philo->last_meal_time = get_current_time();
 }
 

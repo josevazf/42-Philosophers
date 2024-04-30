@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 22:27:24 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/29 19:07:35 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/30 10:05:59 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	think_action(t_philo *philo, bool sim_started)
 	{
 		tt_eat = philo->dinner->tt_eat;
 		tt_sleep = philo->dinner->tt_sleep;
-		tt_think = tt_eat * 2 - tt_sleep;
+		tt_think = (tt_eat * 2) - tt_sleep;
 		if (tt_think < 0)
 			tt_think = 0;
 		usleep_redux(tt_think * 0.5, philo->dinner);
