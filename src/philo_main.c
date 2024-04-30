@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:47:48 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/29 19:46:43 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:15:38 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ int	main(int argc, char **argv)
 	setup_dinner(&dinner);
 	start_dinner(&dinner);
 	cleanup(&dinner);
+	return (SUCCESS);
 }

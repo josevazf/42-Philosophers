@@ -6,14 +6,14 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 11:41:39 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/30 10:52:03 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:38:24 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
 /* Write philo action using a thread safe method */
-void	print_action(t_philo_act action, t_philo *philo)
+/* void	print_action(t_philo_act action, t_philo *philo)
 {
 	long	elapsed_t;
 
@@ -33,7 +33,7 @@ void	print_action(t_philo_act action, t_philo *philo)
 	else if (action == DIED)
 		printf("%ld %d died\n", elapsed_t, philo->index);
 	safe_mutex(&philo->dinner->print_mutex, UNLOCK);
-}
+} */
 
 /* Usleep function adjusted for precision */
 void	usleep_redux(long sleep_t, t_dinner *dinner)
@@ -63,7 +63,7 @@ long	get_current_time(void)
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1e3) + (tv.tv_usec / 1e3));
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
 void	cleanup(t_dinner *dinner)
@@ -75,10 +75,10 @@ void	cleanup(t_dinner *dinner)
 	while (++i < dinner->nb_philos)
 	{
 		philo = &dinner->philos[i];
-		safe_mutex(&philo->philo_mutex, DESTROY);
+		pthread_mutex_destroy(&philo->philo_mutex);
 	}
-	safe_mutex(&dinner->print_mutex, DESTROY);
-	safe_mutex(&dinner->dinner_mutex, DESTROY);
+	pthread_mutex_destroy(&dinner->print_mutex);
+	pthread_mutex_destroy(&dinner->dinner_mutex);
 	free(dinner->forks);
 	free(dinner->philos);
 }

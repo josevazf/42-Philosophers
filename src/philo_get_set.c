@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 09:49:17 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/29 19:49:12 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:39:59 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 /* Allows a safe access to change a bool variable using a mutex */
 void	set_bool(t_mutex *mutex, bool *dest, bool value)
 {
-	safe_mutex(mutex, LOCK);
+	pthread_mutex_lock(mutex);
 	*dest = value;
-	safe_mutex(mutex, UNLOCK);
+	pthread_mutex_unlock(mutex);
 }
 
 /* Allows a safe access to read a bool variable using a mutex */
@@ -25,18 +25,18 @@ bool	get_bool(t_mutex *mutex, bool *value)
 {
 	bool	res;
 
-	safe_mutex(mutex, LOCK);
+	pthread_mutex_lock(mutex);
 	res = *value;
-	safe_mutex(mutex, UNLOCK);
+	pthread_mutex_unlock(mutex);
 	return (res);
 }
 
 /* Allows a safe access to read a long variable using a mutex */
 void	set_long(t_mutex *mutex, long *dest, long value)
 {
-	safe_mutex(mutex, LOCK);
+	pthread_mutex_lock(mutex);
 	*dest = value;
-	safe_mutex(mutex, UNLOCK);
+	pthread_mutex_unlock(mutex);
 }
 
 /* Allows a safe access to read a long variable using a mutex */
@@ -44,17 +44,17 @@ long	get_long(t_mutex *mutex, long *value)
 {
 	long	res;
 
-	safe_mutex(mutex, LOCK);
+	pthread_mutex_lock(mutex);
 	res = *value;
-	safe_mutex(mutex, UNLOCK);
+	pthread_mutex_unlock(mutex);
 	return (res);
 }
 
 /* Allows a safe access to increase a `long` variable using a mutex */
 long	increase_long(t_mutex *mutex, long *value)
 {
-	safe_mutex(mutex, LOCK);
+	pthread_mutex_lock(mutex);
 	(*value)++;
-	safe_mutex(mutex, UNLOCK);
+	pthread_mutex_unlock(mutex);
 	return (*value);
 }

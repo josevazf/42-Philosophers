@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:47:59 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/29 19:40:27 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:47:08 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,6 @@
 
 # define ERROR 1
 # define SUCCESS 0
-
-typedef enum e_philo_act
-{
-	EATING,
-	SLEEPING,
-	THINKING,
-	TAKE_FIRST_FORK,
-	TAKE_SECOND_FORK,
-	DIED,
-}			t_philo_act;
-
-typedef enum e_opcode
-{
-	CREATE,
-	JOIN,
-	DETACH,
-	INIT,
-	LOCK,
-	UNLOCK,
-	DESTROY
-}			t_opcode;
 
 typedef pthread_mutex_t	t_mutex;
 
@@ -100,7 +79,6 @@ void	philos_init(t_dinner *dinner);
 void	setup_dinner(t_dinner *dinner);
 
 // philo_start.c
-
 void	await_philos(t_dinner *dinner, t_philo *philo);
 void	desync_philos(t_philo *philo);
 void	*process_single_philo(void *data);
@@ -111,19 +89,19 @@ void	start_dinner(t_dinner *dinner);
 void	think_action(t_philo *philo, bool sim_started);
 void	eat_action(t_philo *philo);
 
+// philo_printer.c
+void	print_fork(int fork, t_philo *philo);
+void	print_eating(t_philo *philo);
+void	print_sleeping(t_philo *philo);
+void	print_thinking(t_philo *philo);
+void	print_died(t_philo *philo);
+
 // philo_get_set.c
 void	set_bool(t_mutex *mutex, bool *dest, bool value);
 bool	get_bool(t_mutex *mutex, bool *value);
 void	set_long(t_mutex *mutex, long *dest, long value);
 long	get_long(t_mutex *mutex, long *value);
 long	increase_long(t_mutex *mutex, long *value);
-
-// philo_handlers.c
-void	handle_safe_mutex(int status, t_opcode opcode);
-void	safe_mutex(t_mutex *mutex, t_opcode opcode);
-void	handle_safe_thread(int status, t_opcode opcode);
-void	safe_thread(pthread_t *thread, void *(*func)(void *), \
-			void *data, t_opcode opcode);
 
 //philo_monitor.c
 bool	philo_died(t_philo *philo);
@@ -132,7 +110,7 @@ bool	threads_ready(t_mutex *mutex, long *threads, long nbr_philo);
 void	*death_checker(void *data);
 
 // philo_utils.c
-void	print_action(t_philo_act action, t_philo *philo);
+//void	print_action(t_philo_act action, t_philo *philo);
 void	usleep_redux(long sleep_t, t_dinner *dinner);
 long	get_current_time(void);
 void	cleanup(t_dinner *dinner);

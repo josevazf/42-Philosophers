@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:21:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/30 10:36:59 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:45:14 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,17 @@ void	await_philos(t_dinner *dinner, t_philo *philo)
 {
 	while (!get_bool(&dinner->dinner_mutex, &dinner->philos_ready))
 		;
-	usleep(10000 + (philo->index % 2) * 200);
-	philo->last_meal_time = get_current_time();
+	//usleep(10000 + (philo->index % 2) * 200);
+	(void)philo;
 }
 
+/* Desyncs to force sleep when philo nb is odd and tt_eat equals tt_sleep */
 void	desync_philos(t_philo *philo)
 {
 	if (philo->dinner->nb_philos % 2 == 0)
 	{
 		if (philo->index % 2 == 0)
-			usleep_redux(10, philo->dinner);
+			usleep_redux(philo->dinner->tt_eat / 2, philo->dinner);
 	}
 	else
 	{
@@ -35,6 +36,7 @@ void	desync_philos(t_philo *philo)
 	}
 }
 
+/* Process a single philo */
 void	*process_single_philo(void *data)
 {
 	t_philo	*philo;
@@ -43,7 +45,7 @@ void	*process_single_philo(void *data)
 	await_philos(philo->dinner, philo);
 	increase_long(&philo->dinner->dinner_mutex, \
 		&philo->dinner->nb_threads_running);
-	print_action(TAKE_FIRST_FORK, philo);
+	print_fork(1, philo);
 	while (!sim_finished(philo->dinner))
 		usleep_redux(200, philo->dinner);
 	return (NULL);
@@ -56,6 +58,7 @@ void	*dinner_sim(void *data)
 
 	philo = (t_philo *)data;
 	await_philos(philo->dinner, philo);
+	set_long(&philo->philo_mutex, &philo->last_meal_time, get_current_time());
 	increase_long(&philo->dinner->dinner_mutex, \
 		&philo->dinner->nb_threads_running);
 	desync_philos(philo);
@@ -64,7 +67,7 @@ void	*dinner_sim(void *data)
 		if (!get_bool(&philo->philo_mutex, &philo->hungry))
 			break ;
 		eat_action(philo);
-		print_action(SLEEPING, philo);
+		print_sleeping(philo);
 		usleep_redux(philo->dinner->tt_sleep, philo->dinner);
 		think_action(philo, true);
 	}
@@ -80,22 +83,22 @@ void	start_dinner(t_dinner *dinner)
 	if (dinner->nb_meals == 0)
 		return ;
 	else if (dinner->nb_philos == 1)
-		safe_thread(&dinner->philos[0].thread_index, process_single_philo, \
-			&dinner->philos[0], CREATE);
+		pthread_create(&dinner->philos[0].thread_index, NULL, \
+			process_single_philo, &dinner->philos[0]);
 	else
 	{
 		while (++i < dinner->nb_philos)
 		{
-			safe_thread(&dinner->philos[i].thread_index, dinner_sim, \
-				&dinner->philos[i], CREATE);
+			pthread_create(&dinner->philos[i].thread_index, NULL, \
+				dinner_sim, &dinner->philos[i]);
 		}
 	}
-	safe_thread(&dinner->death_monitor, death_checker, dinner, CREATE);
-	dinner->start_time = get_current_time() + 10;
+	pthread_create(&dinner->death_monitor, NULL, death_checker, dinner);
+	set_long(&dinner->dinner_mutex, &dinner->start_time, get_current_time());
 	set_bool(&dinner->dinner_mutex, &dinner->philos_ready, true);
 	i = -1;
 	while (++i < dinner->nb_philos)
-		safe_thread(&dinner->philos[i].thread_index, NULL, NULL, JOIN);
+		pthread_join(dinner->philos[i].thread_index, NULL);
 	set_bool(&dinner->dinner_mutex, &dinner->finished, true);
-	safe_thread(&dinner->death_monitor, NULL, NULL, JOIN);
+	pthread_join(dinner->death_monitor, NULL);
 }

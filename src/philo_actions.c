@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 22:27:24 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/30 10:05:59 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:44:03 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	think_action(t_philo *philo, bool sim_started)
 	long	tt_think;
 
 	if (sim_started)
-		print_action(THINKING, philo);
+		print_thinking(philo);
 	if (philo->dinner->nb_philos % 2 == 0)
 		return ;
 	else
@@ -35,17 +35,17 @@ void	think_action(t_philo *philo, bool sim_started)
 
 void	eat_action(t_philo *philo)
 {
-	safe_mutex(&philo->first_fork->fork, LOCK);
-	print_action(TAKE_FIRST_FORK, philo);
-	safe_mutex(&philo->second_fork->fork, LOCK);
-	print_action(TAKE_SECOND_FORK, philo);
+	pthread_mutex_lock(&philo->first_fork->fork);
+	print_fork(1, philo);
+	pthread_mutex_lock(&philo->second_fork->fork);
+	print_fork(2, philo);
 	set_long(&philo->philo_mutex, &philo->last_meal_time, get_current_time());
 	philo->meal_count++;
-	print_action(EATING, philo);
+	print_eating(philo);
 	usleep_redux(philo->dinner->tt_eat, philo->dinner);
 	if (philo->dinner->nb_meals > 0 && \
 		philo->meal_count == philo->dinner->nb_meals)
 		set_bool(&philo->philo_mutex, &philo->hungry, false);
-	safe_mutex(&philo->first_fork->fork, UNLOCK);
-	safe_mutex(&philo->second_fork->fork, UNLOCK);
+	pthread_mutex_unlock(&philo->first_fork->fork);
+	pthread_mutex_unlock(&philo->second_fork->fork);
 }

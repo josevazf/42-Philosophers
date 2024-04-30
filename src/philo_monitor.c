@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:16:48 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/29 19:46:07 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:55:31 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ bool	threads_ready(t_mutex *mutex, long *threads, long nbr_philo)
 	bool	res;
 
 	res = false;
-	safe_mutex(mutex, LOCK);
+	pthread_mutex_lock(mutex);
 	if (*threads == nbr_philo)
 		res = true;
-	safe_mutex(mutex, UNLOCK);
+	pthread_mutex_unlock(mutex);
 	return (res);
 }
 
@@ -57,12 +57,12 @@ void	*death_checker(void *data)
 	while (!sim_finished(dinner))
 	{
 		i = -1;
-		while (++i < dinner->nb_philos)
+		while (++i < dinner->nb_philos && !sim_finished(dinner))
 		{
 			if (philo_died(&dinner->philos[i]))
 			{
 				set_bool(&dinner->dinner_mutex, &dinner->finished, true);
-				print_action(DIED, &dinner->philos[i]);
+				print_died(&dinner->philos[i]);
 			}
 		}
 	}
