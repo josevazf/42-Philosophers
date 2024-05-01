@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 11:41:39 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/30 12:38:24 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/05/01 22:40:37 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 } */
 
 /* Usleep function adjusted for precision */
-void	usleep_redux(long sleep_t, t_dinner *dinner)
+/* void	usleep_redux(long sleep_t, t_dinner *dinner)
 {
 	struct timeval	start_t;
 	struct timeval	elapsed_t;
@@ -53,6 +53,20 @@ void	usleep_redux(long sleep_t, t_dinner *dinner)
 		if (remain_t >= sleep_t)
 			break ;
 		usleep(100);
+	}
+	return ;
+} */
+
+/* Usleep function adjusted for precision */
+void	usleep_redux(long sleep_t, t_dinner *dinner)
+{
+	long	start_t;
+	
+	start_t = get_current_time();
+	while (get_current_time() - start_t < sleep_t)
+	{
+		if (sim_finished(dinner))
+			usleep(100);
 	}
 	return ;
 }

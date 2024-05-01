@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:21:06 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/30 15:45:14 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/04/30 19:45:06 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	await_philos(t_dinner *dinner, t_philo *philo)
 {
 	while (!get_bool(&dinner->dinner_mutex, &dinner->philos_ready))
 		;
-	//usleep(10000 + (philo->index % 2) * 200);
+	usleep(10000 + (philo->index % 2) * 200);
 	(void)philo;
 }
 
@@ -94,7 +94,7 @@ void	start_dinner(t_dinner *dinner)
 		}
 	}
 	pthread_create(&dinner->death_monitor, NULL, death_checker, dinner);
-	set_long(&dinner->dinner_mutex, &dinner->start_time, get_current_time());
+	set_long(&dinner->dinner_mutex, &dinner->start_time, get_current_time() + 10);
 	set_bool(&dinner->dinner_mutex, &dinner->philos_ready, true);
 	i = -1;
 	while (++i < dinner->nb_philos)
