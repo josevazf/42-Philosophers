@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 16:47:59 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/30 15:47:08 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/05/02 09:39:52 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ typedef struct s_dinner
 	t_mutex			dinner_mutex;
 	t_mutex			print_mutex;
 	pthread_t		death_monitor;
-	t_fork			*forks; // array to store forks
-	t_philo			*philos; // array to store philos
+	t_fork			*forks;
+	t_philo			*philos;
 }						t_dinner;
 
 // philo_main.c
@@ -110,7 +110,6 @@ bool	threads_ready(t_mutex *mutex, long *threads, long nbr_philo);
 void	*death_checker(void *data);
 
 // philo_utils.c
-//void	print_action(t_philo_act action, t_philo *philo);
 void	usleep_redux(long sleep_t, t_dinner *dinner);
 long	get_current_time(void);
 void	cleanup(t_dinner *dinner);

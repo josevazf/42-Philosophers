@@ -6,7 +6,7 @@
 /*   By: jrocha-v <jrocha-v@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:16:48 by jrocha-v          #+#    #+#             */
-/*   Updated: 2024/04/30 12:55:31 by jrocha-v         ###   ########.fr       */
+/*   Updated: 2024/05/02 09:30:48 by jrocha-v         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ bool	sim_finished(t_dinner *dinner)
 	return (get_bool(&dinner->dinner_mutex, &dinner->finished));
 }
 
+/* Safe wrapper function to set threads as ready to start dinner */
 bool	threads_ready(t_mutex *mutex, long *threads, long nbr_philo)
 {
 	bool	res;
@@ -45,6 +46,7 @@ bool	threads_ready(t_mutex *mutex, long *threads, long nbr_philo)
 	return (res);
 }
 
+/* Safe wrapper function to check for philo death */
 void	*death_checker(void *data)
 {
 	int			i;
